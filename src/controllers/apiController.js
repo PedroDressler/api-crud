@@ -2,7 +2,6 @@ import { rFile, wFile } from '../models/apiModel.js';
 
 export async function getGrades(id, pr) {
   let jsonData = await rFile();
-  console.log(typeof (jsonData))
   if (id == undefined) return jsonData;
   jsonData = jsonData.grades.find(item => item.id == id);
   if (jsonData == undefined) return `This {id} is either unregistered or has been deleted!`;
@@ -24,21 +23,21 @@ export async function getGrades(id, pr) {
   return newData;
 }
 
-export async function postGrades(body) {
+export async function postGrade(body) {
   let jsonData = await rFile();
   body.timestamp = String(new Date());
-  body.id = jsonData.nextId
-  jsonData.grades.push(body)
-  console.log(jsonData)
-  jsonData.nextId++
-  await wFile(jsonData)
-  return body
+  body.id = jsonData.nextId;
+  jsonData.grades.push(body);
+  jsonData.nextId++;
+  await wFile(jsonData);
+  return body;
 }
 
-export async function putGrades(body, id) { // NÃO FUNCIONANDO
+export async function putGrade(body, id) { 
   let jsonData = await rFile();
+  if(id > jsonData.grades.length) return `Invalid {id}!`;
   body.timestamp = new Date();
-  const objData = jsonData.grades.map(item => {
+  const dataGrades = jsonData.grades.map(item => {
     if (item.id == id) {
       return {
         id: item.id,
@@ -59,7 +58,23 @@ export async function putGrades(body, id) { // NÃO FUNCIONANDO
         timestamp: item.timestamp
       }
     }
-  })
-  await wFile(jsonData[0]);
+  });
+  jsonData.grades = dataGrades;
+  await wFile(jsonData);
   return body;
+}
+
+export async function deleteGrade(id) {
+  let jsonData = await rFile();
+  jsonData.grades = jsonData.grades.filter(item => item.id != id);
+  await wFile(jsonData);
+  return `Student's grade nº${id} has been deleted successfully from the grades.json`;
+}
+
+export async function sumGrades(st, su) {
+  let jsonData = await rFile();
+  const student = jsonData.grades.filter(item => item.student.replace(/ /g, '') == st);
+  console.log(student)
+  if(subject != undefined) student = student.filter(item => item.type == su);
+  console.log(student)
 }
