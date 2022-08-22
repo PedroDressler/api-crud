@@ -10,7 +10,3 @@ export async function rFile() {
 export async function wFile(file){
   await fs.writeFile(fileName, JSON.stringify(file, null, 2),  (err) => { if(err) throw err })
 }
-
-export async function aFile(dataToAppend){
-  await fs.appendFile(fileName, JSON.stringify(dataToAppend, null, 2), (err) => { if(err) throw err })
-}
