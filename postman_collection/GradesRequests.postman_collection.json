@@ -1,0 +1,168 @@
+{
+	"info": {
+		"_postman_id": "a80dd668-63ba-41e7-ac43-f2bdb1102aef",
+		"name": "GradesRequests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20356843"
+	},
+	"item": [
+		{
+			"name": "/grades/{key}/{index}",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/grades/49/student",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"grades",
+						"49",
+						"student"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/grades",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": null,\r\n    \"student\": \"Matheus\",\r\n    \"subject\": \"JavaScript\",\r\n    \"type\": \"Fórum\",\r\n    \"value\": 20,\r\n    \"timestamp\": null\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/grades",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"grades"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/grades/{id}",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"student\": \"Matheus\",\r\n    \"subject\": \"JavaScript\",\r\n    \"type\": \"Desafio\",\r\n    \"value\": 20\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/grades/50",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"grades",
+						"50"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/grades/{id}",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/grades/50",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"grades",
+						"50"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/total/{student}/{subject}",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/total/40",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"total",
+						"40"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/media/{student}/{subject}",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/media/49",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"media",
+						"49"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/bests/{subject}",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/bests/JavaScript",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"bests",
+						"JavaScript"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

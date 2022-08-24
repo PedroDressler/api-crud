@@ -25,7 +25,7 @@ export async function getGrades(id, pr) {
 
 export async function postGrade(body) {
   let jsonData = await rFile();
-  body.timestamp = String(new Date());
+  body.timestamp = new Date();
   body.id = jsonData.nextId;
   jsonData.grades.push(body);
   jsonData.nextId++;
@@ -35,7 +35,7 @@ export async function postGrade(body) {
 
 export async function putGrade(body, id) { 
   let jsonData = await rFile();
-  if(id > jsonData.grades.length) return `Invalid {id}!`;
+  if(id > jsonData.grades.length) return `Id {${id}} does not exists!`;
   body.timestamp = new Date();
   const dataGrades = jsonData.grades.map(item => {
     if (item.id == id) {
@@ -71,10 +71,38 @@ export async function deleteGrade(id) {
   return `Student's grade nº${id} has been deleted successfully from the grades.json`;
 }
 
-export async function sumGrades(st, su) {
-  let jsonData = await rFile();
-  const student = jsonData.grades.filter(item => item.student.replace(/ /g, '') == st);
-  console.log(student)
-  if(subject != undefined) student = student.filter(item => item.type == su);
-  console.log(student)
+export async function sumGrades(id, sub) {
+  const jsonData = await rFile();
+  let student = getStudent(jsonData, id, sub);
+  student = student.map(item => { return item.value }).reduce((accumulator, val) => { return accumulator + val; }, 0);
+  return { total: student };
+}
+
+export async function modoGrades(id, sub) {
+  const jsonData = await rFile();
+  let student = getStudent(jsonData, id, sub);
+  const size = student.length;
+  student = student.map(item => { return item.value }).reduce((accumulator, val) => { return accumulator + val; }, 0);
+  student /= size;
+  return { media: student };
+}
+
+export async function ThreeBests(sub) {
+  const jsonData = await rFile();
+  let student = jsonData.grades.filter(item => item.subject == sub);
+  student = student.sort((a,b) => b.value - a.value)
+  student.splice(3, student.length - 3)
+  student = student.map(item => { 
+    return {
+      id: item.id, name: item.student, grade: item.value 
+    }
+  });
+  return { subject: sub, students: student }
+}
+
+function getStudent(data, id, sub) {
+  const idStu = data.grades.find(item => item.id == id);
+  let student = data.grades.filter(item => item.student == idStu.student);
+  if(sub != undefined) student = student.filter(item => item.subject == sub);
+  return student;
 }
